@@ -1,0 +1,102 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Fraud Detector</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="main-title">JOB POST DETECTOR</h1>
+            <p class="subtitle">AI-Powered Job Scam Detection System</p>
+        </header>
+
+        <main class="main-content">
+            <form action="/predict" method="post" class="analysis-form">
+
+                <!-- 🔹 NEW JOB LINK TEXTBOX (ADDED) -->
+                <input 
+                    type="text" 
+                    name="job_link" 
+                    placeholder="Paste job link here"
+                    style="width:100%; padding:12px; margin-bottom:12px;"
+                >
+                <!-- 🔹 END ADDITION -->
+
+                <textarea name="combined_text" placeholder="Paste job description here..."></textarea>
+
+                <button type="submit" class="cta-button">Analyze Content</button>
+            </form>
+
+            {% if prediction %}
+            <div class="result-container">
+                <div class="result-card">
+                    <p class="result-text">{{ prediction }}</p>
+                </div>
+            </div>
+            {% endif %}
+
+            <div class="examples-grid">
+                <div class="example-card">
+                    <h3>Legitimate Example</h3>
+                    <textarea id="legit-job" readonly>
+Title: Software Engineer – Backend
+Company: Microsoft
+Location: Hyderabad, India
+Description:
+Microsoft is seeking a Software Engineer to design, develop, and maintain scalable backend systems. The role involves building cloud-native services, improving system reliability, and collaborating with cross-functional teams.
+
+Requirements:
+
+Bachelor’s degree in Computer Science or related field
+
+Strong knowledge of data structures and algorithms
+
+Experience with Java, C#, or Python
+
+Familiarity with distributed systems and REST APIs
+
+Employment Type: Full-time
+                    </textarea>
+                    <button class="copy-button">Copy Text</button>
+                </div>
+
+                <div class="example-card">
+                    <h3>Fraudulent Example</h3>
+                    <textarea id="fraud-job" readonly>
+Work From Home Job – Immediate Hiring!
+
+We are urgently hiring candidates for data entry work. No experience required. Earn ₹25,000–₹40,000 per month by working just 2–3 hours daily.
+
+No interview, no qualification needed. Training will be provided instantly.
+
+To confirm your position, pay a registration fee of ₹1,999.
+
+Contact our HR directly on WhatsApp: +91XXXXXXXXXX
+
+Limited vacancies. Apply now!
+                    </textarea>
+                    <button class="copy-button">Copy Text</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.querySelectorAll('.copy-button').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const content = e.target.previousElementSibling.value;
+                navigator.clipboard.writeText(content);
+                btn.textContent = 'Copied!';
+                setTimeout(() => btn.textContent = 'Copy Text', 2000);
+            });
+        });
+    </script>
+</body>
+</html>

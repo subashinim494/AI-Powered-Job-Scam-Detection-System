@@ -1,0 +1,9 @@
+Flask
+gunicorn
+tensorflow
+scikit-learn
+numpy
+pandas
+requests
+beautifulsoup4
+gunicorn
