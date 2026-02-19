@@ -1,9 +1,9 @@
 Flask
-gunicorn
+pandas
 tensorflow
 scikit-learn
 numpy
-pandas
 requests
 beautifulsoup4
 gunicorn
+joblib
