@@ -1,9 +1,8 @@
-Flask
+gradio
 pandas
 tensorflow
 scikit-learn
 numpy
 requests
 beautifulsoup4
-gunicorn
 joblib
